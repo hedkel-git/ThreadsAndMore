@@ -1,0 +1,9 @@
+#ignore directories that intellij automatically creates
+#(.idea, .out)
+
+/.idea
+/out
+
+
+#ignore all .iml files
+*.iml
