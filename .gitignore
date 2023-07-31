@@ -1,5 +1,5 @@
 #ignore directories that intellij automatically creates
-
+/.idea
 /out
 
 
