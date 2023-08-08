@@ -1,3 +1,5 @@
+import java.util.concurrent.Semaphore;
+
 public class Main {
     public static void main(String[] args) {
         testing();
@@ -13,6 +15,7 @@ public class Main {
 
         System.out.println("hello");
 
+
         /*
         Threads run independently of each other
         */
@@ -21,6 +24,23 @@ public class Main {
     }
 
     public static void testing1(){
+        Semaphore sem = new Semaphore(2);
+
+
+        for (int i = 0; i < 5; i++){
+
+            int ii = i;
+            Thread th = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    System.out.println("I am thread: " + ii);
+                }
+            });
+
+            th.start();
+
+        }
+
 
     }
     public static void testing2(){
