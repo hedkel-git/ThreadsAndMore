@@ -2,7 +2,8 @@ import java.util.concurrent.Semaphore;
 
 public class Main {
     public static void main(String[] args) {
-        testing();
+
+        testing2();
 
     }
 
@@ -23,7 +24,7 @@ public class Main {
 
     }
 
-    public static void testing1(){
+    public static void testing1() throws InterruptedException {
         Semaphore sem = new Semaphore(2);
 
 
@@ -34,6 +35,11 @@ public class Main {
                 @Override
                 public void run() {
                     System.out.println("I am thread: " + ii);
+                    try {
+                        sem.acquire();
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
                 }
             });
 
@@ -44,6 +50,24 @@ public class Main {
 
     }
     public static void testing2(){
+        Rooms rooms = new Rooms(3);
+
+        for (int i = 1; i <= 10; i++) {
+
+
+            int finalI = i;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        rooms.enter(finalI);
+                    } catch (InterruptedException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
+            }).start();
+
+        }
 
     }
 
@@ -65,6 +89,14 @@ public class Main {
     public static void fakeServer() {
 
     }
+
+    /*
+    T
+
+
+
+     */
+
 }
 
 
