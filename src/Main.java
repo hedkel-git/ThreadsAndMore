@@ -1,10 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.Semaphore;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
+        order1();
+    }
 
-        testing2();
+    public static void order1() throws InterruptedException {
 
+        List<Integer> list = new ArrayList<>();
+        Thread x = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                oneToFive(list);
+            }
+        });
+        Thread y = new Thread(x);
+
+        x.start();
+        y.start();
+
+        x.join(3000);
+        y.join(3000);
+
+        System.out.println(list);
+    }
+
+    public static void oneToFive(List<Integer> list){
+        for (int i = 1; i <= 5; i++) {
+            list.add(i);
+            System.out.println(i);
+            try    {Thread.sleep(500);}
+            catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
 
