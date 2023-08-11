@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
+import java.util.concurrent.TimeUnit;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -10,28 +11,45 @@ public class Main {
     public static void order1() throws InterruptedException {
 
         List<Integer> list = new ArrayList<>();
+
+        //SingleTonList list = SingleTonList.getInstance();
+        //SingleTonList list2 = new SingleTonList();
+
         Thread x = new Thread(new Runnable() {
             @Override
             public void run() {
                 oneToFive(list);
             }
-        });
+        }); //x.start() -> use oneToFive-method below
         Thread y = new Thread(x);
 
         x.start();
         y.start();
 
-        x.join(3000);
-        y.join(3000);
+        x.join();
+        y.join();
 
         System.out.println(list);
     }
 
     public static void oneToFive(List<Integer> list){
         for (int i = 1; i <= 5; i++) {
+            synchronized (list){
+                list.add(i);
+            }
+            System.out.println(i);
+            try    {TimeUnit.MILLISECONDS.sleep(500);}
+            catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public static void oneToFive(SingleTonList list){
+        for (int i = 1; i <= 5; i++) {
             list.add(i);
             System.out.println(i);
-            try    {Thread.sleep(500);}
+            try    {TimeUnit.MILLISECONDS.sleep(500);}
             catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -120,14 +138,6 @@ public class Main {
     public static void fakeServer() {
 
     }
-
-    /*
-    T
-
-
-
-     */
-
 }
 
 
