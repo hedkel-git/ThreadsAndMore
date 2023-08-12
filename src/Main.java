@@ -1,7 +1,8 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Semaphore;
-import java.util.concurrent.TimeUnit;
+
+import static java.util.concurrent.TimeUnit.*;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
@@ -38,18 +39,23 @@ public class Main {
                 list.add(i);
             }
             System.out.println(i);
-            try    {TimeUnit.MILLISECONDS.sleep(500);}
+            try    {MILLISECONDS.sleep(500);}
             catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
     }
 
+
+    /*
+    adding elements to a list/array needs to 'tracked',
+    check if add method is synchronised...
+     */
     public static void oneToFive(SingleTonList list){
         for (int i = 1; i <= 5; i++) {
             list.add(i);
             System.out.println(i);
-            try    {TimeUnit.MILLISECONDS.sleep(500);}
+            try    {MILLISECONDS.sleep(500);}
             catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

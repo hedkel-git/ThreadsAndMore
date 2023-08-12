@@ -6,7 +6,6 @@ public class SingleTonList {
 
     private static final SingleTonList stl = new SingleTonList();
 
-
     /*
     If this class is meant to be a singleton, then its default
     constructor must be private. This will make it impossible for
